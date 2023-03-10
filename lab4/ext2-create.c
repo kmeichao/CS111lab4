@@ -278,6 +278,29 @@ void write_block_group_descriptor_table(int fd) {
 
 void write_block_bitmap(int fd) {
 	/* This is all you */
+	off_t off = BLOCK_OFFSET(BLOCK_BITMAP_BLOCKNO);
+	u8 *bitmap;
+	//set file offset to offset bytes
+	off = lseek(fd, off, SEEK_SET);
+	if (off < 0) {
+		errno_exit("lseek");
+	}
+	//create a bitmap big enough to hold number of blocks (each bit represents block)
+	bitmap = calloc(NUM_BLOCKS/8, sizeof(u8));
+	bitmap[0] = 0xff; 
+	bitmap[1] = 0xff; 
+	bitmap[2] = 0x7f; 
+	bitmap[NUM_BLOCKS/8 - 1] = 0b10000000;
+
+	// for (int i = NUM_BLOCKS/8; i < NUM_BLOCKS; i++) {
+	// 	bitmap[i] = 0xff;
+	// }
+
+	ssize_t size = NUM_BLOCKS;
+	if (write(fd, bitmap, size) != size) {
+		errno_exit("write");
+	}
+
 }
 
 void write_inode_bitmap(int fd) {
