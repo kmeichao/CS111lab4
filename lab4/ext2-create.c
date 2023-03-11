@@ -286,7 +286,7 @@ void write_block_bitmap(int fd) {
 		errno_exit("lseek");
 	}
 	//create a bitmap big enough to hold number of blocks (each bit represents block)
-	bitmap = calloc(NUM_BLOCKS/8, sizeof(u8));
+	bitmap = calloc(128, sizeof(u8));
 	bitmap[0] = 0xff; 
 	bitmap[1] = 0xff; 
 	bitmap[2] = 0x7f; 
