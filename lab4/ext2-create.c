@@ -292,9 +292,9 @@ void write_block_bitmap(int fd) {
 	bitmap[2] = 0x7f; 
 	bitmap[NUM_BLOCKS/8 - 1] = 0b10000000;
 
-	// for (int i = NUM_BLOCKS/8; i < NUM_BLOCKS; i++) {
-	// 	bitmap[i] = 0xff;
-	// }
+	for (int i = NUM_BLOCKS/8; i < NUM_BLOCKS; i++) {
+		bitmap[i] = 0xff;
+	}
 
 	ssize_t size = NUM_BLOCKS;
 	if (write(fd, bitmap, size) != size) {
