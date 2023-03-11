@@ -286,17 +286,17 @@ void write_block_bitmap(int fd) {
 		errno_exit("lseek");
 	}
 	//create a bitmap big enough to hold number of blocks (each bit represents block)
-	bitmap = calloc(128, sizeof(u8));
+	bitmap = calloc(BLOCK_SIZE, sizeof(u8));
 	bitmap[0] = 0xff; 
 	bitmap[1] = 0xff; 
 	bitmap[2] = 0x7f; 
-	bitmap[NUM_BLOCKS/8 - 1] = 0b10000000;
+	bitmap[BLOCK_SIZE/8 - 1] = 0b10000000;
 
-	for (int i = NUM_BLOCKS/8; i < NUM_BLOCKS; i++) {
+	for (int i = BLOCK_SIZE/8; i < NUM_BLOCKS; i++) {
 		bitmap[i] = 0xff;
 	}
 
-	ssize_t size = NUM_BLOCKS;
+	ssize_t size = BLOCK_SIZE;
 	if (write(fd, bitmap, size) != size) {
 		errno_exit("write");
 	}
