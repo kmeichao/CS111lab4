@@ -330,7 +330,7 @@ void write_block_bitmap(int fd)
 void write_inode_bitmap(int fd)
 {
 	/* This is all you */
-	off_t off = BLOCK_OFFSET(BLOCK_BITMAP_BLOCKNO);
+	off_t off = BLOCK_OFFSET(INODE_BITMAP_BLOCKNO);
 	u8 *inode_bitmap;
 	// set file offset to offset bytes
 	off = lseek(fd, off, SEEK_SET);
@@ -391,6 +391,8 @@ void write_inode_table(int fd)
 
 	/* You should add your 3 other inodes in this function and delete this
 	   comment */
+	//    struct ext2_inode hello_world_inode = {0};
+	//    hello_world_inode.i_mode = 
 }
 
 void write_root_dir_block(int fd)
