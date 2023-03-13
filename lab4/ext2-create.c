@@ -391,8 +391,51 @@ void write_inode_table(int fd)
 
 	/* You should add your 3 other inodes in this function and delete this
 	   comment */
-	//    struct ext2_inode hello_world_inode = {0};
-	//    hello_world_inode.i_mode = 
+	   struct ext2_inode hello_world_inode = {0};
+	   hello_world_inode.i_mode = EXT2_S_IFREG | EXT2_S_IRUSR | EXT2_S_IWUSR | EXT2_S_IRGRP | EXT2_S_IROTH;
+	   hello_world_inode.i_uid = 1000;
+	   hello_world_inode.i_size = 12;
+	   hello_world_inode.i_atime = current_time;
+	   hello_world_inode.i_ctime = current_time;
+	   hello_world_inode.i_mtime = current_time;
+	   hello_world_inode.i_dtime = 0;
+	   hello_world_inode.i_gid = 1000;
+	   hello_world_inode.i_links_count = 1;
+	   hello_world_inode.i_blocks = 2;
+	   hello_world_inode.i_block[0] = HELLO_WORLD_FILE_BLOCKNO;
+	   write_inode(fd, HELLO_WORLD_INO, &hello_world_inode);
+	   
+	   struct ext2_inode root_inode = {0};
+	   root_inode.i_mode = EXT2_S_IFDIR | EXT2_S_IRUSR | EXT2_S_IWUSR | EXT2_S_IXUSR | EXT2_S_IRGRP | EXT2_S_IXGRP | EXT2_S_IROTH | EXT2_S_IXOTH;
+	   root_inode.i_uid = 0;
+	   root_inode.i_size = 1024;
+	   root_inode.i_atime = current_time;
+	   root_inode.i_ctime = current_time;
+	   root_inode.i_mtime = current_time;
+	   root_inode.i_dtime = 0;
+	   root_inode.i_gid = 0;
+	   root_inode.i_links_count = 3; 
+	   root_inode.i_blocks = 2;
+	   root_inode.i_block[0] = ROOT_DIR_BLOCKNO;
+	   write_inode(fd, EXT2_ROOT_INO, &root_inode);
+
+	   struct ext2_inode hello_inode = {0};
+	   hello_inode.i_mode =  EXT2_S_IFLNK | EXT2_S_IRUSR | EXT2_S_IWUSR | EXT2_S_IRGRP | EXT2_S_IROTH;
+	   hello_inode.i_uid = 1000;
+	   hello_inode.i_size = 12;
+	   hello_inode.i_atime = current_time;
+	   hello_inode.i_ctime = current_time;
+	   hello_inode.i_mtime = current_time;
+	   hello_inode.i_dtime = 0;
+	   hello_inode.i_gid = 1000;
+	   hello_inode.i_links_count = 1;
+	   hello_inode.i_blocks = 0;
+	   hello_inode.i_block[0] = 0x6c6c6568; //hello world ascii
+	   hello_inode.i_block[1] = 0x6f772d6f;
+	   hello_inode.i_block[2] = 0x00646c72;
+	   write_inode(fd, HELLO_INO, &hello_inode);
+
+
 }
 
 void write_root_dir_block(int fd)
