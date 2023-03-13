@@ -391,7 +391,7 @@ void write_inode_table(int fd)
 
 	/* You should add your 3 other inodes in this function and delete this
 	   comment */
-	//current_time = get_current_time();
+	current_time = get_current_time();
 	struct ext2_inode hello_world_inode = {0};
 	hello_world_inode.i_mode = EXT2_S_IFREG | EXT2_S_IRUSR | EXT2_S_IWUSR | EXT2_S_IRGRP | EXT2_S_IROTH;
 	hello_world_inode.i_uid = 1000;
@@ -406,7 +406,7 @@ void write_inode_table(int fd)
 	hello_world_inode.i_block[0] = HELLO_WORLD_FILE_BLOCKNO;
 	write_inode(fd, HELLO_WORLD_INO, &hello_world_inode);
 
-	//current_time = get_current_time();
+	current_time = get_current_time();
 	struct ext2_inode root_inode = {0};
 	root_inode.i_mode = EXT2_S_IFDIR | EXT2_S_IRUSR | EXT2_S_IWUSR | EXT2_S_IXUSR | EXT2_S_IRGRP | EXT2_S_IXGRP | EXT2_S_IROTH | EXT2_S_IXOTH;
 	root_inode.i_uid = 0;
@@ -421,7 +421,7 @@ void write_inode_table(int fd)
 	root_inode.i_block[0] = ROOT_DIR_BLOCKNO;
 	write_inode(fd, EXT2_ROOT_INO, &root_inode);
 
-	//current_time = get_current_time();
+	current_time = get_current_time();
 	struct ext2_inode hello_inode = {0};
 	hello_inode.i_mode = EXT2_S_IFLNK | EXT2_S_IRUSR | EXT2_S_IWUSR | EXT2_S_IRGRP | EXT2_S_IROTH;
 	hello_inode.i_uid = 1000;
